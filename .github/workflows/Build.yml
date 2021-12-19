@@ -1,0 +1,71 @@
+name: 'Build Code'
+
+on:
+  push:
+    branches: 'master'
+jobs:
+  analyze:
+    name: Analyze code for any code vulnerability
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['javascript']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v1
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
+  buildValidation:
+    needs: analyze
+    name: Validates build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: yarn install
+      - run: yarn test
+      - run: yarn run build
+  # build:
+  #   needs: buildValidation
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Use Node.js ${{ matrix.node-version }}
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 16.x
+  #         cache: 'npm'
+  #     - run: yarn install
+  #     - run: yarn run build
+  #     - name: Deploy build
+  #       uses: akhileshns/heroku-deploy@v3.12.12
+  #       with:
+  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  #         heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+  #         heroku_email: ${{secrets.HEROKU_EMAIL}}
+  #         buildpack: https://github.com/heroku/heroku-buildpack-nodejs.git
+  #         healthcheck: "https://${{secrets.HEROKU_APP_NAME}}.herokuapp.com/"
+  #         rollbackonhealthcheckfailed: true
