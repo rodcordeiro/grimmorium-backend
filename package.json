@@ -1,0 +1,54 @@
+{
+  "name": "grimmorium",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./build/src/server.js",
+    "build": "npx tsc -b",
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "test": "jest --colors"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.0",
+    "pg": "^8.7.1",
+    "sqlite3": "^4.2.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/axios": "0.14.0",
+    "@types/bcryptjs": "2.4.2",
+    "@types/cors": "2.8.12",
+    "@types/express": "4.17.13",
+    "@types/jest": "27.0.2",
+    "@types/jsonwebtoken": "8.5.5",
+    "@types/morgan": "1.9.3",
+    "@types/node": "14.17.20",
+    "@types/uuid": "8.3.1",
+    "cross-env": "7.0.3",
+    "jest": "27.2.4",
+    "morgan": "1.10.0",
+    "ts-node-dev": "1.1.8",
+    "typescript": "4.4.3"
+  },
+  "jest": {
+    "clearMocks": true,
+    "rootDir": "./__tests",
+    "testEnvironmentOptions": {
+      "NODE_ENV": "test",
+      "PORT": 3333
+    },
+    "collectCoverage": true,
+    "coverageDirectory": "./coverage"
+  }
+}
