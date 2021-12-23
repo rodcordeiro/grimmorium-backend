@@ -2,7 +2,7 @@ exports.up = function (knex) {
   return knex.schema.createTable('users', (table) => {
     table.string('id').notNullable().primary();
     table.string('username').notNullable();
-    table.text('picture').notNullable();
+    table.text('picture');
     table.string('email').notNullable();
     table.string('password').notNullable();
     table.timestamp('created_at').defaultTo(knex.fn.now());
