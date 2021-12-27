@@ -48,7 +48,7 @@
   },
   "jest": {
     "clearMocks": true,
-    "rootDir": "./__tests",
+    "rootDir": "./__tests__",
     "testEnvironmentOptions": {
       "NODE_ENV": "test",
       "PORT": 3333
