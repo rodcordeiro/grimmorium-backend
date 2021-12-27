@@ -1,12 +1,15 @@
 import connection from '../database';
 import { v4 as uuid } from 'uuid';
 import { Encrypt } from '../tools/crypto';
+import { CollectionServices, iCollection } from './Collection';
 import jwt from '../middlewares/auth';
 
 interface iUser {
-  id?: any;
+  id?: string;
   username: string;
   email?: string;
+  picture?: string;
+  defaultCollection?: string;
   password: string;
   created_at?: Date;
   updated_at?: Date;
@@ -42,11 +45,20 @@ class UserService {
             email,
             password,
           })
-          .then((response) => {
+          .then(async (response) => {
+            const cservices = new CollectionServices(id);
+            const defaultCollection = await cservices.createDefault();
+            await connection('users')
+              .update({
+                defaultCollection: defaultCollection.id,
+              })
+              .where({ id });
+            const collections = await cservices.getAllCollections();
             resolve({
               id,
               username,
               email,
+              collections,
             });
           });
       } catch (err) {
@@ -81,7 +93,9 @@ class UserService {
         .update({ username, email, password, updated_at })
         .where('id', id)
         .then(async (response) => {
-          const user = await this.findUserById(id).then((response) => response);
+          const user = await this.findUserById(String(id)).then(
+            (response) => response,
+          );
           resolve(user);
         })
         .catch((err) => {
@@ -136,7 +150,6 @@ class UserService {
         const isValid: boolean = await compare(password, user.password).then(
           (response) => response,
         );
-        console.log({ user, isValid, password });
         if (!user || user.username !== username || !isValid) {
           reject('Invalid username or password');
         }
@@ -157,7 +170,7 @@ class UserService {
           .where('id', id)
           .delete()
           .then((response) => {
-            resolve(response);
+            resolve('');
           })
           .catch((error) => {
             reject({
@@ -197,6 +210,26 @@ class UserService {
           .first()
           .then((response) => {
             resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+  async listCollections(id: string): Promise<iCollection[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await connection('users')
+          .select('id', ' username', ' email', ' created_at', ' updated_at')
+          .where('id', id)
+          .first()
+          .then(async (response) => {
+            const cservices = new CollectionServices(response.id);
+            const collections = await cservices.getAllCollections();
+            resolve(collections);
           })
           .catch((error) => {
             reject(error);

@@ -1,13 +1,14 @@
 import { Request, Response } from 'express';
 import { Encrypt } from '../tools/crypto';
 import { UserService, iUser } from '../services/User';
+import { iCollection, CollectionServices } from '../services/Collection';
 
 class UserController {
   async index(req: Request, res: Response) {
     const services = new UserService();
     const users = await services
       .list_users()
-      .then((response) => {
+      .then((response: iUser[]) => {
         return res.status(200).json(response);
       })
       .catch((err) => {
@@ -21,7 +22,7 @@ class UserController {
     const user = await services
       .create_user({ username, email, password })
       .then((response: any) => {
-        return res.status(200).json(response);
+        return res.status(201).json(response);
       })
       .catch((err) => {
         return res.status(400).json([err]);
@@ -31,7 +32,12 @@ class UserController {
     const services = new UserService();
     const id = req.params.id ? req.params.id : req.headers.id;
     const { username, email, password } = req.body;
-    const user = await services.update_user({ id, username, email, password });
+    const user = await services.update_user({
+      id: String(id),
+      username,
+      email,
+      password,
+    });
     return res.status(200).json(user);
   }
 
@@ -40,7 +46,7 @@ class UserController {
     const response = await services
       .delete_user(req.params.id)
       .then((response) => {
-        if (response !== 0) return res.status(201).json({ response });
+        if (response !== 0) return res.status(204).json();
         return res.status(400).json({ error: 'Usuário não encontrado' });
       })
       .catch((error) => {
@@ -79,6 +85,8 @@ class UserController {
         .json({ err: 'You must provide username or email' });
     }
   }
+
+  
 }
 
 export { UserController };
