@@ -5,10 +5,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API documentation</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <meta http-equiv="refresh" content="5; url=http://localhost:3333/doc">
 </head>
 <body>
     <header>
-        <h1>API Endpoints documentation</h1>
+        <h1>Grimmorium API</h1>
     </header>
+    <section>
+        <div class="header">
+            <h3><span class="tag post">POST</span> /auth</h3>
+            <p>Rota de autenticação</p>
+        </div>
+        <hr/>
+            <h4>Paramêtros</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>parameter</th>
+                        <th>type</th>
+                        <th>place</th>
+                        <th>required</th>
+                        <th>description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>username</td>
+                        <td>string</td>
+                        <td>body</td>
+                        <td>required</td>
+                        <td>The username</td>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td>string</td>
+                        <td>body</td>
+                        <td>required</td>
+                        <td>The user password. <strong>Must be base64 encoded</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr/>
+            <h4>Retorno</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>value</th>
+                        <th>type</th>
+                        <th>description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>id</td>
+                        <td>string</td>
+                        <td>The user id</td>
+                    </tr>
+                    <tr>
+                        <td>token</td>
+                        <td>string</td>
+                        <td>The authentication token</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+    </section>
+    <section>
+        <div class="header">
+            <h3><span class="tag get">GET</span> /Collections</h3>
+        </div>
+    </section>
 </body>
 </html>
