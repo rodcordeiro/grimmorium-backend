@@ -9,6 +9,7 @@
     "prebuild": "npm test && npx rimraf ./build",
     "build": "npx tsc -b",
     "predev": "npx knex migrate:latest",
+    "updateDb": "npx knex migrate:latest && npx knex seed:run",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "test": "jest --colors"
   },
