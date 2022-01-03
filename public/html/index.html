@@ -73,6 +73,80 @@
     </section>
     <section>
         <div class="header">
+            <h3><span class="tag post">POST</span> /users/create</h3>
+            <p>Rota de criação do usuário</p>
+        </div>
+        <hr/>
+            <h4>Paramêtros</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>parameter</th>
+                        <th>type</th>
+                        <th>place</th>
+                        <th>required</th>
+                        <th>description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>username</td>
+                        <td>string</td>
+                        <td>body</td>
+                        <td>required</td>
+                        <td>The username</td>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td>string</td>
+                        <td>body</td>
+                        <td>required</td>
+                        <td>The user password. <strong>Must be base64 encoded</strong></td>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <td>string</td>
+                        <td>body</td>
+                        <td>required</td>
+                        <td>The user email.</td>
+                    </tr>
+
+                    <tr>
+                        <td>authorization</td>
+                        <td>string</td>
+                        <td>header</td>
+                        <td>required</td>
+                        <td>The authenticated user token.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr/>
+            <h4>Retorno</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>value</th>
+                        <th>type</th>
+                        <th>description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>id</td>
+                        <td>string</td>
+                        <td>The user id</td>
+                    </tr>
+                    <tr>
+                        <td>token</td>
+                        <td>string</td>
+                        <td>The authentication token</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+    </section>
+    <section>
+        <div class="header">
             <h3><span class="tag get">GET</span> /Collections</h3>
         </div>
     </section>

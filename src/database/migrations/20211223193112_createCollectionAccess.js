@@ -3,7 +3,7 @@ exports.up = function (knex) {
     table.string('collection').notNullable();
     table.foreign('collection').references('collection.id');
     table.string('user').notNullable();
-    table.foreign('user').references('user.id');
+    table.foreign('user').references('users.id');
     table.boolean('editPermissions').notNullable();
   });
 };
