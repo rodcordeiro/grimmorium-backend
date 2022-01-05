@@ -19,15 +19,15 @@ routes.get('/', (req, res) => {
 //User
 routes.get('/users', users.index);
 routes.post(
-  '/users/create',
+  '/users',
   isAuthenticated,
   [validateBase64Data],
   validateParams,
   users.create,
 );
-routes.put('/users/update', isAuthenticated, users.update);
-routes.put('/users/update/:id', isAuthenticated, users.update);
-routes.delete('/users/delete/:id', isAuthenticated, users.delete);
+routes.put('/users', isAuthenticated, users.update);
+routes.put('/users/:id', isAuthenticated, users.update);
+routes.delete('/users/:id', isAuthenticated, users.delete);
 routes.post('/auth', [validateBase64Data], validateParams, users.login);
 
 //collections
