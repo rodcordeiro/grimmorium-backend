@@ -33,6 +33,9 @@ routes.post('/auth', [validateBase64Data], validateParams, users.login);
 //collections
 routes.get('/collections', isAuthenticated, collections.getCollections);
 routes.post('/collections', isAuthenticated, collections.create);
+routes.put('/collections/:id', collections.update);
+routes.post('/collections/share', collections.share);
+routes.delete('/collections/:id', collections.delete);
 
 //Books
 routes.get('/books', books.index);
