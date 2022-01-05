@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+header {
+  background: red;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header > h1 {
+  font-size: 3rem;
+}
+section {
+  padding: 2rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 80%;
+  margin: 2rem auto;
+}
+table tr,
+table th,
+table td,
+table {
+  border-collapse: collapse;
+  border: 1px solid black;
+  padding: 1rem;
+}
+section .header {
+  background: #ccc3;
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+section .header h3 {
+  margin: 10px 5px;
+}
+section .header p {
+  margin: 0px 10px;
+}
+section hr {
+  margin: 1rem 0;
+}
+
+.tag {
+  padding: 5px;
+  border-radius: 5px;
+}
+.tag.get {
+  background-color: lightblue;
+}
+.tag.post {
+  background-color: greenyellow;
+}

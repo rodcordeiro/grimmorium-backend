@@ -3,7 +3,7 @@ exports.up = function (knex) {
     table.string('id').notNullable().primary();
     table.string('name').notNullable();
     table.string('owner').notNullable();
-    table.foreign('owner').references('user.id');
+    // table.foreign('owner').references('user.id');
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());
   });
