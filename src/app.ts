@@ -31,7 +31,7 @@ if (process.env.NODE_ENV == 'development') {
 }
 
 app.use(cors(corsOptions));
-app.use(routes);
+app.use('/api', routes);
 
 const http = createServer(app);
 
