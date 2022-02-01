@@ -46,7 +46,7 @@
     "jest": "27.4.7",
     "rimraf": "3.0.2",
     "ts-node-dev": "1.1.8",
-    "typescript": "4.5.4"
+    "typescript": "4.5.5"
   },
   "jest": {
     "clearMocks": true,
