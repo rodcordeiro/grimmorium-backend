@@ -1,6 +1,7 @@
 import connection from '../database';
 import { v4 as uuid } from 'uuid';
 import { iUser, UserService } from './User';
+
 interface iCollection {
   id?: string;
   name: string;
@@ -84,7 +85,7 @@ class CollectionServices {
             user,
           })
           .first();
-        console.log({ access });
+
         if (access) {
           reject('User already have access');
           return;
@@ -113,6 +114,11 @@ class CollectionServices {
     return new Promise(async (resolve, reject) => {
       try {
         const user = owner ? owner : this.userId;
+        // console.log('CollectionServices/hasPermission->data', {
+        //   collection,
+        //   user,
+        // });
+
         const access = await connection('accessControl')
           .select('*')
           .where({
@@ -120,6 +126,8 @@ class CollectionServices {
             user,
           })
           .first();
+        // console.log('CollectionServices/hasPermission->access', access);
+
         if (!access) {
           reject('');
           return;
@@ -192,6 +200,7 @@ class CollectionServices {
   }
   async update(data: iCollection): Promise<iCollection> {
     return new Promise(async (resolve, reject) => {
+      // console.log('CollectionServices/update->data', data);
       try {
         const collection = await connection('collection')
           .select('*')
@@ -200,10 +209,12 @@ class CollectionServices {
         if (!collection) {
           reject('Collection not found');
         }
+        // console.log('CollectionServices/update->collection', collection);
         const perm = await this.hasPermission(String(data.id), data.owner);
-        if (!perm || !perm.editPermissions) {
+        if (!perm || !Boolean(perm.editPermissions)) {
           reject("Doesn't have access");
         }
+        // console.log('CollectionServices/update->perm', perm);
         await connection('collection')
           .update(data)
           .where('id', data.id)
@@ -214,8 +225,12 @@ class CollectionServices {
               .first();
             resolve(value);
           })
-          .catch((err) => reject(err));
+          .catch((err) => {
+            // console.log('CollectionServices/update->updateErr', err);
+            reject(err);
+          });
       } catch (err) {
+        console.log('CollectionServices/update->err', err);
         reject(err);
       }
     });
