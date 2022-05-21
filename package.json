@@ -26,7 +26,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.95.0",
+    "knex": "^2.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.7.1",
     "sqlite3": "^5.0.0",
