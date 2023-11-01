@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@types/axios": "0.14.0",
-    "@types/bcryptjs": "2.4.4",
+    "@types/bcryptjs": "2.4.5",
     "@types/cors": "2.8.14",
     "@types/express": "4.17.17",
     "@types/jest": "27.5.2",
