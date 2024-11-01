@@ -33,7 +33,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@types/axios": "0.14.0",
+    "@types/axios": "0.14.4",
     "@types/bcryptjs": "2.4.6",
     "@types/cors": "2.8.17",
     "@types/express": "4.17.21",
